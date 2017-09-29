@@ -15,8 +15,9 @@ function handleUpload(){
 		$uploadOk = false;
     }
     if($uploadOk){
-        if (move_uploaded_file($_FILES["fileupload"]["tmp_name"], $target_file)) {
-            return true;
+        $fileName = $target_dir . time() . ".txt";
+        if (move_uploaded_file($_FILES["fileupload"]["tmp_name"], $fileName)) {
+            return $fileName;
         } else {
             print_r($_FILES);
             echo "Sorry, deine Datei konnte nicht hochgeladen werden.";
@@ -24,7 +25,7 @@ function handleUpload(){
     }
     return false;
 }
-
+$uploadRespone = handleUpload();
 ?>
 <head>
     <!-- Bootstrap-->
@@ -46,11 +47,17 @@ function handleUpload(){
         google.charts.setOnLoadCallback(drawChart("chart2"));
         google.charts.setOnLoadCallback(drawColumnChart("chart3"));
 
+        function getUrl(type){
+            var url = "data.php?";
+            var typeParm = "type=" + type;
+            var fileParm = "file=" + "<?= $uploadRespone  ?>";
+            return url + typeParm + "&" + fileParm;
+        }
 
         function drawChart(type) {
             return function () {
                 var jsonData = $.ajax({
-                    url: "data.php?type=" + type,
+                    url: getUrl(type),
                     dataType: "json",
                     async: false
                 }).responseText;
@@ -67,7 +74,7 @@ function handleUpload(){
         function drawColumnChart(type){
             return function(){
                 var jsonData = $.ajax({
-                    url: "data.php?type=" + type,
+                    url: getUrl(type),
                     dataType: "json",
                     async: false
                 }).responseText;
@@ -83,7 +90,7 @@ function handleUpload(){
 
         function setGesamtStat(){
             var jsonGesamt = JSON.parse($.ajax({
-                url: "data.php?type=gesamt",
+                url: getUrl("gesamt"),
                 dataType: "json",
                 async: false
             }).responseText);
@@ -111,7 +118,7 @@ function handleUpload(){
 <h1>WhatsApp Analyser</h1>
 
     <?php
-    if(isset($_POST["submit"]) && handleUpload()){
+    if(isset($_POST["submit"]) && strpos($uploadRespone, "txt")){
     ?>
 
     <div class="panel panel-primary">

@@ -1,6 +1,8 @@
 <?php
 include_once "Analyser.php";
-$rows = file('tmp/1.txt');
+
+$file = $_GET["file"];
+$rows = file($file);
 
 $parm = $_GET["type"];
 
