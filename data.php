@@ -1,6 +1,6 @@
 <?php
 include_once "Analyser.php";
-//$rows = file('chat3.txt');
+$rows = file('tmp/1.txt');
 
 $parm = $_GET["type"];
 

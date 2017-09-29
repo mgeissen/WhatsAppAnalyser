@@ -2,17 +2,18 @@
 <?php
 function handleUpload(){
     $target_dir = "./tmp/";
-    $target_file = $target_dir . basename($_FILES["fileupload"]["name"]);
+    //$target_file = $target_dir . basename($_FILES["fileupload"]["name"]);
+	$target_file = $target_dir . "1.txt";
     $uploadOk = true;
     $imageFileType = pathinfo($target_file,PATHINFO_EXTENSION);
-    if ($_FILES["fileToUpload"]["size"] > 500000) {
+    if ($_FILES["fileupload"]["size"] > 5000000) {
         echo "Sorry, Die Datei ist zu groß!";
         $uploadOk = false;
     }
-    //if($imageFileType != "txt"){
-     //   echo "Bitte lade eine gültige .txt Datei hoch!";
-    //    $uploadOk = false;
-    //}
+    if($imageFileType != "txt"){
+		echo "Bitte lade eine gültige .txt Datei hoch!";
+		$uploadOk = false;
+    }
     if($uploadOk){
         if (move_uploaded_file($_FILES["fileupload"]["tmp_name"], $target_file)) {
             return true;

@@ -50,6 +50,8 @@ class Analyser{
     private function addTeilnehmer($name, $istBild){
         if(!in_array($name, $this->teilnehmer)){
             $this->teilnehmer[] = $name;
+			$this->teilnehmerCount[$name] = 0;
+			$this->teilnehmerBildCount[$name] = 0;
         }
         $this->teilnehmerCount[$name] += 1;
         if($istBild){
@@ -81,6 +83,10 @@ class Analyser{
             } else{
                 $this->addTeilnehmer($name, false);
             }
+			
+			if(!array_key_exists ($zeit, $this->times)){
+				$this->times[$zeit] = 0;
+			}
             $this->times[$zeit] += 1;
         }
     }
