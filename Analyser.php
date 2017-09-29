@@ -8,8 +8,8 @@ class Analyser{
     private $teilnehmerBildCount;
     private $times;
 
-    public function __construct($rows){
-        $this->rows = $rows;
+    public function __construct($filepath){
+        $this->rows = file($filepath);;
         $this->teilnehmer = array();
         $this->teilnehmerCount = array();
         $this->times = array();
@@ -116,24 +116,26 @@ class Analyser{
         }
 
         $data["rows"] = $rows;
-        echo json_encode($data);
+        return $data;
     }
 
     public function createJson($parm){
+        $response = "";
         switch ($parm){
             case "chart1":
-                $this->createChartJson(["Teilnehmer","Anzahl"], $this->teilnehmerCount);
+                $response = $this->createChartJson(["Teilnehmer","Anzahl"], $this->teilnehmerCount);
                 break;
             case "chart2":
-                $this->createChartJson(["Teilnehmer","Anzahl"], $this->teilnehmerBildCount);
+                $response = $this->createChartJson(["Teilnehmer","Anzahl"], $this->teilnehmerBildCount);
                 break;
             case "chart3":
-                $this->createChartJson(["Zeit","Anzahl Nachrichten"], $this->times);
+                $response = $this->createChartJson(["Zeit","Anzahl Nachrichten"], $this->times);
                 break;
             case "gesamt":
-                $this->createGesamtStatJson();
+                $response = $this->createGesamtStatJson();
                 break;
         }
+        return json_encode($response);
     }
 
     private function createGesamtStatJson(){
@@ -144,7 +146,7 @@ class Analyser{
         $data["countMaxNachrichten"] = max($this->times);
         $data["timeMaxNachrichten"] = array_keys($this->times, max($this->times));
 
-        echo json_encode($data);
+        return $data;
     }
 
 }

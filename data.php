@@ -2,10 +2,8 @@
 include_once "Analyser.php";
 
 $file = $_GET["file"];
-$rows = file($file);
+$type = $_GET["type"];
 
-$parm = $_GET["type"];
-
-$analyser = new Analyser($rows);
+$analyser = new Analyser($file);
 $analyser->analyse();
-$analyser->createJson($parm);
+echo $analyser->createJson($type);
