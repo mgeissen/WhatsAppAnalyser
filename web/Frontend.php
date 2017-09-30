@@ -46,9 +46,17 @@ class Frontend{
         <head>
             <!-- Bootstrap-->
             <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-            <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-            <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
-            <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+            <link rel="stylesheet"
+                  href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+                  integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+                  crossorigin="anonymous">
+            <link rel="stylesheet"
+                  href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"
+                  integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp"
+                  crossorigin="anonymous">
+            <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+                    integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+                    crossorigin="anonymous"></script>
 
             <!--Load the AJAX API-->
             <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
@@ -59,71 +67,28 @@ class Frontend{
 
     private function includeChartScript(){
         ?>
+        <script type="text/javascript" src="stats.js"></script>
         <script type="text/javascript">
-            // Load the Visualization API and the piechart package.
-            google.charts.load('current', {'packages':['corechart']});
-
-            // Set a callback to run when the Google Visualization API is loaded.
-            google.charts.setOnLoadCallback(drawChart("chart1"));
-            google.charts.setOnLoadCallback(drawChart("chart2"));
-            google.charts.setOnLoadCallback(drawColumnChart("chart3"));
-
-            function getUrl(type){
-                var url = "data.php?";
-                var typeParm = "type=" + type;
-                var fileParm = "file=" + "<?= $this->uploadFile ?>";
-                return url + typeParm + "&" + fileParm;
-            }
-
-            function drawChart(type) {
-                return function () {
-                    var jsonData = $.ajax({
-                        url: getUrl(type),
-                        dataType: "json",
-                        async: false
-                    }).responseText;
-
-                    // Create our data table out of JSON data loaded from server.
-                    var data = new google.visualization.DataTable(jsonData);
-
-                    // Instantiate and draw our chart, passing in some options.
-                    var chart = new google.visualization.PieChart(document.getElementById(type));
-                    chart.draw(data, {width: 400, height: 240});
-                }
-            }
-
-            function drawColumnChart(type){
-                return function(){
-                    var jsonData = $.ajax({
-                        url: getUrl(type),
-                        dataType: "json",
-                        async: false
-                    }).responseText;
-
-                    var data = new google.visualization.DataTable(jsonData);
-                    var options = {};
-
-                    var chart = new google.visualization.ColumnChart(document.getElementById(type));
-
-                    chart.draw(data, {width: 1000, height: 240});
-                }
-            }
-
-            function setGesamtStat(){
-                var jsonGesamt = JSON.parse($.ajax({
-                    url: getUrl("gesamt"),
-                    dataType: "json",
-                    async: false
-                }).responseText);
-                document.getElementById("countNachrichten").innerHTML = jsonGesamt.countNachrichten;
-                document.getElementById("countTeilnehmer").innerHTML = jsonGesamt.countTeilnehmer;
-                document.getElementById("countBilder").innerHTML = jsonGesamt.countBilder;
-
-                document.getElementById("countMaxNachrichten").innerHTML = jsonGesamt.countMaxNachrichten;
-                document.getElementById("startTime").innerHTML = jsonGesamt.timeMaxNachrichten;
-                document.getElementById("endTime").innerHTML = parseInt(jsonGesamt.timeMaxNachrichten) + 1;
-            }
-
+            var stats = Stats();
+            stats.init({
+                uploadFile: "<?= $this->uploadFile ?>",
+                pieChart: [
+                    "chart1",
+                    "chart2"
+                ],
+                columnChart: [
+                    "chart3"
+                ],
+                simpleStats: [
+                    "countNachrichten",
+                    "countTeilnehmer",
+                    "countBilder",
+                    "countMaxNachrichten",
+                    "startTime",
+                    "endTime"
+                ]
+            });
+            stats.drawCharts();
         </script>
         <?php
     }
@@ -155,7 +120,8 @@ class Frontend{
                 <h3 class="panel-title">Gesamt Statistik</h3>
             </div>
             <div class="panel-body">
-                <div><span class="glyphicon glyphicon-send"></span> <span id="countNachrichten"></span> Nachrichten davon <span class="glyphicon glyphicon-picture"></span> <span id="countBilder"></span> Medien</div>
+                <div>
+                    <span class="glyphicon glyphicon-send"></span> <span id="countNachrichten"></span> Nachrichten davon <span class="glyphicon glyphicon-picture"></span> <span id="countBilder"></span> Medien</div>
                 <div><span class="glyphicon glyphicon-user"></span> <span id="countTeilnehmer"></span> Teilnehmer</div>
                 <div><span class="glyphicon glyphicon-time"></span> Zwischen <span id="startTime"></span> und <span id="endTime"></span> Uhr schreibt ihr am öftesten, insgesamt <span class="glyphicon glyphicon-send"></span> <span id="countMaxNachrichten"></span> Nachrichten</div>
             </div>
@@ -186,7 +152,7 @@ class Frontend{
             </div>
         </div>
         <script>
-            setGesamtStat();
+            stats.drawStats();
         </script>
         <?php
     }

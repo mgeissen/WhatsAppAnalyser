@@ -144,7 +144,8 @@ class Analyser{
         $data["countTeilnehmer"] = sizeof($this->teilnehmer);
         $data["countBilder"] = array_sum($this->teilnehmerBildCount);
         $data["countMaxNachrichten"] = max($this->times);
-        $data["timeMaxNachrichten"] = array_keys($this->times, max($this->times));
+        $data["startTime"] = array_keys($this->times, max($this->times))[0];
+        $data["endTime"] = $data["startTime"] + 1;
 
         return $data;
     }
