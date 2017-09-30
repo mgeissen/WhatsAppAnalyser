@@ -18,7 +18,7 @@ class UploadResponse{
         $this->failedText = "";
     }
 
-    public static function ofFail($failureText): UploadResponse{
+    public static function ofFail($failureText = ""): UploadResponse{
         $response = new self();
         $response->setStatus(false);
         $response->failedText = $failureText;

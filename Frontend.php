@@ -1,8 +1,19 @@
 <?php
-
+include_once "UploadResponse.php";
 class Frontend{
 
-    public function start(): void{
+    private $uploadFile;
+
+    public function __construct(){
+        $response = $this->handleUpload();
+        if($response->isUploaded()){
+            $this->uploadFile = $response->getFilePath();
+        } else{
+            $this->uploadFile = "";
+        }
+    }
+
+    public function start(){
         $this->renderHead();
         $this->includeChartScript();
         $this->includeStylesheet();
@@ -10,6 +21,9 @@ class Frontend{
     }
 
     function handleUpload(): UploadResponse{
+        if(!isset($_FILES["fileupload"])){
+            return UploadResponse::ofFail();
+        }
         $target_dir = "./tmp/";
         //$target_file = $target_dir . basename($_FILES["fileupload"]["name"]);
         $target_file = $target_dir . "1.txt";
@@ -57,7 +71,7 @@ class Frontend{
             function getUrl(type){
                 var url = "data.php?";
                 var typeParm = "type=" + type;
-                var fileParm = "file=" + "<?= $uploadRespone  ?>";
+                var fileParm = "file=" + "<?= $this->uploadFile ?>";
                 return url + typeParm + "&" + fileParm;
             }
 
@@ -126,7 +140,7 @@ class Frontend{
 
     private function renderBody(){
         $this->renderBodyHeader();
-        if(isset($_POST["submit"]) && strpos($uploadRespone, "txt")){
+        if(isset($_POST["submit"]) && strpos($this->uploadFile , "txt")){
             $this->renderStatsPage();
         } else{
             $this->renderUploadPage();
