@@ -1,5 +1,6 @@
 <?php
 include_once "BestDayAnalyser.php";
+include_once "IAnaylser.php";
 class Analyser{
 
     private $rows;

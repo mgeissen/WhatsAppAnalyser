@@ -5,15 +5,14 @@
  * Date: 01.10.17
  * Time: 11:44
  */
-
-class BestDayAnalyser{
+include_once "IAnaylser.php";
+class BestDayAnalyser implements IAnaylser{
 
     private $days;
 
     public function __construct(){
         $this->days = array();
     }
-
 
     public function analyse($row){
         if(preg_match("/[0-9]{2}.[0-9]{2}.[0-9]{2}/", $row, $hit)){
