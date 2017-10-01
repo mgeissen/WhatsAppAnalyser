@@ -1,3 +1,12 @@
 .floatLeft{
     float: left;
 }
+
+.stats-card{
+    margin-bottom: 15px;
+}
+
+.icon{
+    width: 18px;
+    height: 18px;
+}
