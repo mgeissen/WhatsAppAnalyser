@@ -26,7 +26,7 @@ var Stats = Stats || (function () {
             var data = new google.visualization.DataTable(jsonData);
 
             var chart = new google.visualization.PieChart(document.getElementById(elementId));
-            chart.draw(data, {width: 400, height: 240});
+            chart.draw(data, {width: 350, height: 240});
         }
     }
 

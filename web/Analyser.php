@@ -1,5 +1,5 @@
 <?php
-
+include_once "BestDayAnalyser.php";
 class Analyser{
 
     private $rows;
@@ -9,12 +9,15 @@ class Analyser{
     private $teilnehmerMessageSize;
     private $times;
 
+    private $bestDayAnalyser;
+
     public function __construct($filepath){
         $this->rows = file($filepath);;
         $this->teilnehmer = array();
         $this->teilnehmerCount = array();
         $this->teilnehmerMessageSize = array();
         $this->times = array();
+        $this->bestDayAnalyser = new BestDayAnalyser();
     }
 
     public function analyse(){
@@ -35,7 +38,9 @@ class Analyser{
             } else{
                 $index = "" . $i;
             }
-            $new[$index] = $this->times[$index];
+            if(isset($this->times[$index])){
+                $new[$index] = $this->times[$index];
+            }
         }
         $this->times = $new;
     }
@@ -83,6 +88,7 @@ class Analyser{
     }
 
     private function analyseRow($row){
+        $this->bestDayAnalyser->analyse($row);
         $messageSize = 0;
         if(preg_match("/:\s.*/", $row, $nachrichtTreffer)){
             $messageSize =  strlen($nachrichtTreffer[0]) - 2;
@@ -145,6 +151,9 @@ class Analyser{
             case "chart3":
                 $response = $this->createChartJson(["Zeit","Anzahl Nachrichten"], $this->times);
                 break;
+            case "chartMessageSize":
+                $response = $this->createChartJson(["Teilnehmer", "Nachrichtenlänge"], $this->getAvgMessageSize());
+                break;
             case "gesamt":
                 $response = $this->createGesamtStatJson();
                 break;
@@ -152,7 +161,15 @@ class Analyser{
         return json_encode($response);
     }
 
-    private function createGesamtStatJson(){
+    private function getAvgMessageSize(): array {
+        $messageSizeAvg = array();
+        foreach ($this->teilnehmerMessageSize as $name => $messageSizeTotal){
+            $messageSizeAvg[$name] = round($messageSizeTotal / ($this->teilnehmerCount[$name] - $this->teilnehmerBildCount[$name]));
+        }
+        return $messageSizeAvg;
+    }
+
+    private function createGesamtStatJson(): array {
         $data = array();
         $data["countNachrichten"] = array_sum($this->teilnehmerCount);
         $data["countTeilnehmer"] = sizeof($this->teilnehmer);
@@ -162,6 +179,8 @@ class Analyser{
         $data["endTime"] = $data["startTime"] + 1;
         $data["messageSizeAverage"] = round(array_sum($this->teilnehmerMessageSize) / ($data["countNachrichten"] - $data["countBilder"]));
         $data["messageSizeSum"] = array_sum($this->teilnehmerMessageSize);
+        $data["bestDay"] = $this->bestDayAnalyser->getBestDay();
+        $data["bestDayCount"] = $this->bestDayAnalyser->getBestDayCount();
 
         return $data;
     }

@@ -54,7 +54,8 @@ class Frontend{
                 uploadFile: "<?= $this->uploadFile ?>",
                 pieChart: [
                     "chart1",
-                    "chart2"
+                    "chart2",
+                    "chartMessageSize"
                 ],
                 columnChart: [
                     "chart3"
@@ -67,7 +68,9 @@ class Frontend{
                     "startTime",
                     "endTime",
                     "messageSizeAverage",
-                    "messageSizeSum"
+                    "messageSizeSum",
+                    "bestDay",
+                    "bestDayCount"
                 ]
             });
             stats.drawCharts();
