@@ -11,7 +11,6 @@ var Stats = Stats || (function () {
         var typeParm = "type=" + type;
         var fileParm = "file=" + args.uploadFile;
         var urlWithParms = url + typeParm + "&" + fileParm;
-        console.log(urlWithParms);
         return urlWithParms;
     }
 
