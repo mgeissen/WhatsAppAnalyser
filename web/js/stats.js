@@ -58,7 +58,6 @@ var Stats = Stats || (function () {
             });
         },
         drawStats: function () {
-            console.log(getUrl("gesamt"));
             var jsonGesamt = JSON.parse($.ajax({
                 url: getUrl("gesamt"),
                 dataType: "json",
