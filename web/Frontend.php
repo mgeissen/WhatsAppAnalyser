@@ -65,7 +65,9 @@ class Frontend{
                     "countBilder",
                     "countMaxNachrichten",
                     "startTime",
-                    "endTime"
+                    "endTime",
+                    "messageSizeAverage",
+                    "messageSizeSum"
                 ]
             });
             stats.drawCharts();

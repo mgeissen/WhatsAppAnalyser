@@ -10,7 +10,9 @@ var Stats = Stats || (function () {
         var url = "data.php?";
         var typeParm = "type=" + type;
         var fileParm = "file=" + args.uploadFile;
-        return url + typeParm + "&" + fileParm;
+        var urlWithParms = url + typeParm + "&" + fileParm;
+        console.log(urlWithParms);
+        return urlWithParms;
     }
 
     function getPieChartCallback(elementId) {

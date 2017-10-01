@@ -6,12 +6,14 @@ class Analyser{
     private $teilnehmer;
     private $teilnehmerCount;
     private $teilnehmerBildCount;
+    private $teilnehmerMessageSize;
     private $times;
 
     public function __construct($filepath){
         $this->rows = file($filepath);;
         $this->teilnehmer = array();
         $this->teilnehmerCount = array();
+        $this->teilnehmerMessageSize = array();
         $this->times = array();
     }
 
@@ -47,15 +49,22 @@ class Analyser{
 
     }
 
-    private function addTeilnehmer($name, $istBild){
+    private function addTeilnehmer($name, $istBild, $messageSize){
+        if($messageSize == 0){
+            // Do not count info messages like add people to group
+            return;
+        }
         if(!in_array($name, $this->teilnehmer)){
             $this->teilnehmer[] = $name;
 			$this->teilnehmerCount[$name] = 0;
 			$this->teilnehmerBildCount[$name] = 0;
+			$this->teilnehmerMessageSize[$name] = 0;
         }
         $this->teilnehmerCount[$name] += 1;
         if($istBild){
             $this->teilnehmerBildCount[$name] += 1;
+        } else{
+            $this->teilnehmerMessageSize[$name] += $messageSize;
         }
 
     }
@@ -74,14 +83,19 @@ class Analyser{
     }
 
     private function analyseRow($row){
+        $messageSize = 0;
+        if(preg_match("/:\s.*/", $row, $nachrichtTreffer)){
+            $messageSize =  strlen($nachrichtTreffer[0]) - 2;
+        }
+
         if(preg_match("/[0-9]{2}.[0-9]{2}.[0-9]{2},.[0-9]{2}:[0-9]{2}.-.*?:/", $row, $treffer)){
             $importantTreffer = $this->returnKleinstenTreffer($treffer);
             $name = substr($importantTreffer,18,-1);
             $zeit = substr($importantTreffer, 10, 2);
             if(preg_match("/<Medien weggelassen>/", $row)){
-                $this->addTeilnehmer($name, true);
+                $this->addTeilnehmer($name, true, $messageSize);
             } else{
-                $this->addTeilnehmer($name, false);
+                $this->addTeilnehmer($name, false, $messageSize);
             }
 			
 			if(!array_key_exists ($zeit, $this->times)){
@@ -146,6 +160,8 @@ class Analyser{
         $data["countMaxNachrichten"] = max($this->times);
         $data["startTime"] = array_keys($this->times, max($this->times))[0];
         $data["endTime"] = $data["startTime"] + 1;
+        $data["messageSizeAverage"] = round(array_sum($this->teilnehmerMessageSize) / ($data["countNachrichten"] - $data["countBilder"]));
+        $data["messageSizeSum"] = array_sum($this->teilnehmerMessageSize);
 
         return $data;
     }
