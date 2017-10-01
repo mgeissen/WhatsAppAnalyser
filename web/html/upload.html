@@ -1,5 +1,7 @@
 <form method="post" enctype="multipart/form-data">
-    Wähle eine WhatsApp .txt Datei aus:
-    <input type="file" name="fileupload" id="fileupload">
-    <input type="submit" value="Upload .txt" name="submit">
+    <div class="form-group">
+        <label for="fileupload">Wähle eine .txt Datei aus:</label>
+        <input type="file" class="form-control-file" id="fileupload" name="fileupload">
+    </div>
+    <input type="submit" class="btn btn-primary" name="submit" value="Analysieren">
 </form>
