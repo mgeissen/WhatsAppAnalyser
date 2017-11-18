@@ -88,7 +88,7 @@ class Frontend{
             include_once "resources/html/stats.php";
             ?>
             <script>
-                stats.drawStats();
+                document.stats.drawStats();
             </script>
             <?php
         } else{
