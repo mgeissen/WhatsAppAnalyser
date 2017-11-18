@@ -1,9 +1,11 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2017-11-18 16:58+0100\n"
-"PO-Revision-Date: 2017-11-18 16:59+0100\n"
+"POT-Creation-Date: 2017-11-18 17:06+0100\n"
+"PO-Revision-Date: 2017-11-18 17:06+0100\n"
+"Last-Translator: \n"
 "Language-Team: \n"
+"Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -11,15 +13,35 @@ msgstr ""
 "X-Poedit-Basepath: ..\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Poedit-KeywordsList: __\n"
-"Last-Translator: \n"
-"Language: de\n"
 "X-Poedit-SearchPath-0: .\n"
 "X-Poedit-SearchPathExcluded-0: lib\n"
 "X-Poedit-SearchPathExcluded-1: locale\n"
 "X-Poedit-SearchPathExcluded-2: tmp\n"
 
-msgid "MainHeader"
-msgstr "Überschrift"
+#: resources/html/header.php:2
+msgid "WhatsAppAnylser"
+msgstr ""
 
-msgid "Translate using gettext"
-msgstr "Übersetzter Text"
+#: resources/html/header.php:16
+msgid "WhatsApp Analyser"
+msgstr ""
+
+#: resources/html/upload.php:3
+msgid "Please select the whats app .txt file"
+msgstr "Bitte wähle eine gültige WhatsApp .txt Datei hoch"
+
+#: resources/html/upload.php:6
+msgid "Analyse"
+msgstr "Analysieren"
+
+#~ msgid "HeadTitle"
+#~ msgstr "WhatsAppAnalyser"
+
+#~ msgid "WebsiteTitle"
+#~ msgstr "WhatsApp Analyser"
+
+#~ msgid "MainHeader"
+#~ msgstr "Überschrift"
+
+#~ msgid "Translate using gettext"
+#~ msgstr "Übersetzter Text"

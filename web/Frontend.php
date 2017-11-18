@@ -42,7 +42,7 @@ class Frontend{
     }
 
     private function renderHead(){
-        include "resources/html/header.html";
+        include "resources/html/header.php";
     }
 
     private function includeChartScript(){
@@ -86,14 +86,14 @@ class Frontend{
 
     private function renderBody(){
         if(isset($_POST["submit"]) && strpos($this->uploadFile , "txt")){
-            include_once "resources/html/stats.html";
+            include_once "resources/html/stats.php";
             ?>
             <script>
                 stats.drawStats();
             </script>
             <?php
         } else{
-            include_once "resources/html/upload.html";
+            include_once "resources/html/upload.php";
         }
         include_once "resources/html/footer.html";
     }
