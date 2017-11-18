@@ -42,12 +42,12 @@ class Frontend{
     }
 
     private function renderHead(){
-        include "html/header.html";
+        include "resources/html/header.html";
     }
 
     private function includeChartScript(){
         ?>
-        <script type="text/javascript" src="js/stats.js"></script>
+        <script type="text/javascript" src="resources/js/stats.js"></script>
         <script type="text/javascript">
             var stats = Stats();
             stats.init({
@@ -80,21 +80,21 @@ class Frontend{
 
     private function includeStylesheet(){
         ?>
-        <link rel="stylesheet" href="css/stylesheet.css">
+        <link rel="stylesheet" href="resources/css/stylesheet.css">
         <?php
     }
 
     private function renderBody(){
         if(isset($_POST["submit"]) && strpos($this->uploadFile , "txt")){
-            include_once "html/stats.html";
+            include_once "resources/html/stats.html";
             ?>
             <script>
                 stats.drawStats();
             </script>
             <?php
         } else{
-            include_once "html/upload.html";
+            include_once "resources/html/upload.html";
         }
-        include_once "html/footer.html";
+        include_once "resources/html/footer.html";
     }
 }
