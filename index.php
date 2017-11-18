@@ -5,7 +5,7 @@ switch ($lang){
         header("Location: ./web?lang=de");
         break;
     default:
-        header("Location: ./web");
+        header("Location: ./web?lang=en");
         break;
 }
 
