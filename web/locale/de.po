@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2017-11-18 17:06+0100\n"
-"PO-Revision-Date: 2017-11-18 17:06+0100\n"
+"POT-Creation-Date: 2017-11-18 18:38+0100\n"
+"PO-Revision-Date: 2017-11-18 18:40+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: de\n"
@@ -25,6 +25,90 @@ msgstr ""
 #: resources/html/header.php:16
 msgid "WhatsApp Analyser"
 msgstr ""
+
+#: resources/html/stats.php:1
+msgid "Analyse new chat"
+msgstr "Neuen Chat analysieren"
+
+#: resources/html/stats.php:3
+msgid "Overview"
+msgstr "Zusammenfassung"
+
+#: resources/html/stats.php:6
+msgid ""
+"<img class='icon' src='resources/img/glyphicons-422-send.png'> <span "
+"id='countNachrichten'></span> messages therefrom <img class='icon' "
+"src='resources/img/glyphicons-139-picture.png'> <span id='countBilder'></"
+"span> media content"
+msgstr ""
+"<img class='icon' src='resources/img/glyphicons-422-send.png'> <span "
+"id='countNachrichten'></span> Nachrichten davon <img class='icon' "
+"src='resources/img/glyphicons-139-picture.png'> <span id='countBilder'></"
+"span> Medien"
+
+#: resources/html/stats.php:9
+msgid ""
+"<img src='resources/img/glyphicons-4-user.png' class='icon'> <span "
+"id='countTeilnehmer'></span> member"
+msgstr ""
+"<img src='resources/img/glyphicons-4-user.png' class='icon'> <span "
+"id='countTeilnehmer'></span> Teilnehmer"
+
+#: resources/html/stats.php:12
+msgid ""
+"<img src='resources/img/glyphicons-55-clock.png' class='icon'> You write "
+"most often between <span id='startTime'></span> and <span id='endTime'></"
+"span> o'clock with a total of <img src='resources/img/glyphicons-422-send."
+"png' class='icon'> <span id='countMaxNachrichten'></span> messages"
+msgstr ""
+"<img src='resources/img/glyphicons-55-clock.png' class='icon'> Zwischen "
+"<span id='startTime'></span> und <span id='endTime'></span> Uhr habt mit "
+"insgesamt <img src='resources/img/glyphicons-422-send.png' class='icon'> "
+"<span id='countMaxNachrichten'></span> Nachrichten eure aktivste Zeit des "
+"Tages"
+
+#: resources/html/stats.php:15
+msgid ""
+"<img src='resources/img/glyphicons-605-text-size.png' class='icon'> On "
+"average you write messages with <span id='messageSizeAverage'></span> "
+"letters. Overall, you have written <img src='resources/img/glyphicons-606-"
+"text-color.png' class='icon'> <span id='messageSizeSum'></span> characters."
+msgstr ""
+"<img src='resources/img/glyphicons-605-text-size.png' class='icon'> Im "
+"durchschnitt schreibt ihr Nachrichten mit <span id='messageSizeAverage'></"
+"span> Buchstaben. Insgesamt habt ihr <img src='resources/img/glyphicons-606-"
+"text-color.png' class='icon'> <span id='messageSizeSum'></span> Zeichen "
+"geschrieben."
+
+#: resources/html/stats.php:18
+msgid ""
+"<img src='resources/img/glyphicons-46-calendar.png' class='icon'> On <span "
+"id='bestDay'></span> you had your most active day with a total of <span "
+"id='bestDayCount'></span> messages."
+msgstr ""
+"<img src='resources/img/glyphicons-46-calendar.png' class='icon'> Am <span "
+"id='bestDay'></span> habt ihr euren aktivsten Tag gehabt mit insgesamt "
+"<span id='bestDayCount'></span> Nachrichten."
+
+#: resources/html/stats.php:23
+msgid "Message distribution"
+msgstr "Nachrichtenverteilung"
+
+#: resources/html/stats.php:26
+msgid "Messages"
+msgstr "Nachrichten"
+
+#: resources/html/stats.php:30
+msgid "Media"
+msgstr "Medien"
+
+#: resources/html/stats.php:34
+msgid "Message length"
+msgstr "Nachrichtenlänge"
+
+#: resources/html/stats.php:40
+msgid "Time distribution"
+msgstr "Zeitverteilung"
 
 #: resources/html/upload.php:3
 msgid "Please select the whats app .txt file"
