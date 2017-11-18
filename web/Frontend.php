@@ -49,8 +49,7 @@ class Frontend{
         ?>
         <script type="text/javascript" src="resources/js/stats.js"></script>
         <script type="text/javascript">
-            var stats = Stats();
-            stats.init({
+            document.stats.init({
                 uploadFile: "<?= $this->uploadFile ?>",
                 pieChart: [
                     "chart1",
@@ -73,7 +72,7 @@ class Frontend{
                     "bestDayCount"
                 ]
             });
-            stats.drawCharts();
+            document.stats.drawCharts();
         </script>
         <?php
     }

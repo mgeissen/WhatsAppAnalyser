@@ -1,4 +1,4 @@
-var Stats = Stats || (function () {
+document.stats = function () {
     var args = {};
     //args.uploadFile;
     //args.pieChart = [];
@@ -6,15 +6,15 @@ var Stats = Stats || (function () {
     //args.simpleStats = [];
 
 
-    function getUrl(type) {
+    var getUrl = function (type) {
         var url = "analyser/?";
         var typeParm = "type=" + type;
         var fileParm = "file=" + args.uploadFile;
         var urlWithParms = url + typeParm + "&" + fileParm;
         return urlWithParms;
-    }
+    };
 
-    function getPieChartCallback(elementId) {
+    var getPieChartCallback = function (elementId) {
         return function () {
             var jsonData = $.ajax({
                 url: getUrl(elementId),
@@ -27,10 +27,10 @@ var Stats = Stats || (function () {
             var chart = new google.visualization.PieChart(document.getElementById(elementId));
             chart.draw(data, {width: 350, height: 240});
         }
-    }
+    };
 
-    function getColumnChartCallback(elementId){
-        return function(){
+    var getColumnChartCallback = function (elementId) {
+        return function () {
             var jsonData = $.ajax({
                 url: getUrl(elementId),
                 dataType: "json",
@@ -42,11 +42,11 @@ var Stats = Stats || (function () {
             var chart = new google.visualization.ColumnChart(document.getElementById(elementId));
             chart.draw(data, {width: 1000, height: 240});
         }
-    }
+    };
 
     return {
-        init: function(initArgs){
-            google.charts.load('current', {'packages':['corechart']});
+        init: function (initArgs) {
+            google.charts.load('current', {'packages': ['corechart']});
             args = initArgs;
         },
         drawCharts: function () {
@@ -68,5 +68,5 @@ var Stats = Stats || (function () {
                 document.getElementById(element).innerHTML = jsonGesamt[element];
             })
         }
-    }
-});
+    };
+}();
