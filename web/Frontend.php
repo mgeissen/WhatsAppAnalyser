@@ -43,6 +43,10 @@ class Frontend{
 
     private function renderHead(){
         include "resources/html/header.php";
+        include_once "html/header.html";
+        if(file_exists("../../customHeader.php")){
+            include_once "../../customHeader.php";
+        }
     }
 
     private function includeChartScript(){
