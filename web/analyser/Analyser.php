@@ -99,7 +99,7 @@ class Analyser{
             $importantTreffer = $this->returnKleinstenTreffer($treffer);
             $name = substr($importantTreffer,18,-1);
             $zeit = substr($importantTreffer, 10, 2);
-            if(preg_match("/<Medien weggelassen>/", $row)){
+            if(preg_match("/<Medien ausgeschlossen>/", $row)){
                 $this->addTeilnehmer($name, true, $messageSize);
             } else{
                 $this->addTeilnehmer($name, false, $messageSize);
