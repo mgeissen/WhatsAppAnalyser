@@ -87,7 +87,7 @@ class Frontend{
     }
 
     private function renderBody(){
-        if(isset($_POST["submit"])){
+        if(isset($_POST["submit"]) && strpos($this->uploadFile , "txt")){
             include_once "resources/html/stats.php";
             ?>
             <script>
